@@ -6,11 +6,11 @@ import { Environment } from "./environment";
 export class EnvSettingsCoreService {
 	constructor(private readonly configService: ConfigService) {}
 
-	get<T>(name: keyof Environment): T | undefined {
+	get(name: keyof Environment): string | undefined {
 		return this.configService.get(name);
 	}
 
-	getOrThrow<T>(name: keyof Environment): T {
+	getOrThrow(name: keyof Environment): string {
 		return this.configService.getOrThrow(name);
 	}
 

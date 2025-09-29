@@ -20,6 +20,6 @@ export class ServerSettingsServiceImpl implements ServerSettingsService {
     }
 
     private getMode(): ServerMode {
-        return this.settingsService.getOrThrow('SERVER_MODE');
+        return this.settingsService.getOrThrow('SERVER_MODE') as ServerMode;
     }
 }
