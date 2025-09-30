@@ -1,5 +1,7 @@
 import { ClassProvider, DynamicModule, InjectionToken, Logger, Module, OnModuleInit, Type } from "@nestjs/common";
 import { configPostgres, POSTGRESQL_CONNECTION, POSTGRESQL_REPOSITORIES } from "./postgres-config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { POSTGRESQL_ENTITIES } from "./entities";
 
 @Module({})
 export class PostgresqlModule implements OnModuleInit {
@@ -10,8 +12,11 @@ export class PostgresqlModule implements OnModuleInit {
 
 		return {
 			module: PostgresqlModule,
+			imports: [
+				configPostgres(),
+				TypeOrmModule.forFeature(POSTGRESQL_ENTITIES, POSTGRESQL_CONNECTION),
+			],
 			providers,
-			imports: [configPostgres()],
 		};
 	}
 
