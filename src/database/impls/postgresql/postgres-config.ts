@@ -1,6 +1,7 @@
 import { DynamicModule, InjectionToken, Type } from "@nestjs/common";
 import { TypeOrmModule, TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DatabaseSettingsService } from "src/settings/database-settings.service";
+import { POSTGRESQL_MIGRATIONS } from "./migrations";
 
 export const POSTGRESQL_CONNECTION = "PostgreSQL";
 
@@ -10,7 +11,8 @@ export function configPostgres(): DynamicModule {
 	return TypeOrmModule.forRootAsync({
 		name: POSTGRESQL_CONNECTION,
 		inject: [DatabaseSettingsService],
-		useFactory: (databaseSettings: DatabaseSettingsService): TypeOrmModuleOptions => ({
+		useFactory: (databaseSettings: DatabaseSettingsService): TypeOrmModuleOptions => {
+			return ({
 			type: "postgres",
 			host: databaseSettings.getHost(),
 			port: databaseSettings.getPort(),
@@ -19,6 +21,7 @@ export function configPostgres(): DynamicModule {
 			database: databaseSettings.getDatabase(),
 			schema: databaseSettings.getSchema(),
 			migrationsRun: databaseSettings.isMigrated(),
-		}),
+			migrations: POSTGRESQL_MIGRATIONS,
+		})},
 	});
 }

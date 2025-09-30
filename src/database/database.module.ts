@@ -6,7 +6,7 @@ export class DatabaseModule {
 	static forRoot(): DynamicModule {
 		return {
 			module: DatabaseModule,
-			imports: [PostgresqlModule],
+			imports: [PostgresqlModule.forRoot()],
 		};
 	}
 
