@@ -5,21 +5,21 @@ import { ServerMode } from "./environment";
 
 @Injectable()
 export class ServerSettingsServiceImpl implements ServerSettingsService {
-    constructor(private readonly settingsService: EnvSettingsCoreService) {}
+	constructor(private readonly settingsService: EnvSettingsCoreService) {}
 
-    getPort(): number {
-        return this.settingsService.getNumberOrThrow('SERVER_PORT');
-    }
+	getPort(): number {
+		return this.settingsService.getNumberOrThrow('SERVER_PORT');
+	}
 
-    isDevelopment(): boolean {
-        return this.getMode() === ServerMode.DEVELOPMENT;
-    }
+	isDevelopment(): boolean {
+		return this.getMode() === ServerMode.DEVELOPMENT;
+	}
 
-    isProduction(): boolean {
-        return this.getMode() === ServerMode.PRODUCTION;
-    }
+	isProduction(): boolean {
+		return this.getMode() === ServerMode.PRODUCTION;
+	}
 
-    private getMode(): ServerMode {
-        return this.settingsService.getOrThrow('SERVER_MODE') as ServerMode;
-    }
+	private getMode(): ServerMode {
+		return this.settingsService.getOrThrow('SERVER_MODE') as ServerMode;
+	}
 }
